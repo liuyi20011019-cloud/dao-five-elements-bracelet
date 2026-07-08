@@ -14,6 +14,14 @@ export function BirthForm({ profile, onChange, onSubmit }: BirthFormProps) {
     onChange({ ...profile, [key]: value });
   };
 
+  const setBirthTime = (value: string) => {
+    onChange({ ...profile, birthTime: value, timeMode: 'exact' });
+  };
+
+  const setTimeMode = (mode: BirthTimeMode) => {
+    onChange({ ...profile, timeMode: mode });
+  };
+
   return (
     <section className="glass-card birth-form" id="基础信息">
       <div className="section-heading">
@@ -30,8 +38,7 @@ export function BirthForm({ profile, onChange, onSubmit }: BirthFormProps) {
           <input
             type="time"
             value={profile.birthTime}
-            disabled={profile.timeMode !== 'exact'}
-            onChange={(event) => setField('birthTime', event.target.value)}
+            onChange={(event) => setBirthTime(event.target.value)}
           />
         </label>
         <label>
@@ -53,7 +60,7 @@ export function BirthForm({ profile, onChange, onSubmit }: BirthFormProps) {
             className={profile.timeMode === mode ? 'selected' : ''}
             type="button"
             key={mode}
-            onClick={() => setField('timeMode', mode)}
+            onClick={() => setTimeMode(mode)}
           >
             {timeModeLabels[mode]}
           </button>
